@@ -25,7 +25,8 @@ const options = {
 
     if (selectedDates[0] <= Date.now()) {
       iziToast.show({
-        iconUrl: './img/x-octagon.png',
+        image: './img/x-octagon.png',
+        imageWidth: 24,
         theme: 'dark',
         message: 'Please choose a date in the future',
         messageSize: '16px',
