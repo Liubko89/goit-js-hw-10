@@ -3,6 +3,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+const input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
 const timerDays = document.querySelector('[data-days]');
 const timerHours = document.querySelector('[data-hours]');
@@ -12,6 +13,7 @@ const timerSeconds = document.querySelector('[data-seconds]');
 startBtn.addEventListener('click', onStartTimer);
 
 let userSelectedDate = 0;
+startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -23,7 +25,7 @@ const options = {
 
     if (selectedDates[0] <= Date.now()) {
       iziToast.show({
-        iconUrl: './img/octagon.svg',
+        iconUrl: './img/x-octagon.png',
         theme: 'dark',
         message: 'Please choose a date in the future',
         messageSize: '16px',
@@ -33,7 +35,6 @@ const options = {
         timeout: 10000,
       });
 
-      startBtn.disabled = true;
       return;
     } else {
       startBtn.disabled = false;
@@ -61,4 +62,20 @@ function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
-function onStartTimer() {}
+function onStartTimer() {
+  const intervalId = setInterval(() => {
+    const timeDifference = userSelectedDate - Date.now();
+    const time = convertMs(timeDifference);
+    timerDays.textContent = addLeadingZero(time.days);
+    timerHours.textContent = addLeadingZero(time.hours);
+    timerMinutes.textContent = addLeadingZero(time.minutes);
+    timerSeconds.textContent = addLeadingZero(time.seconds);
+  }, 1000);
+
+  setTimeout(() => {
+    clearInterval(intervalId);
+  }, userSelectedDate - Date.now());
+
+  input.disabled = true;
+  startBtn.disabled = true;
+}
