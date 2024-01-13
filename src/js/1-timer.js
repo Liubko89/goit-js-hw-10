@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import icon from '../img/octagon.svg';
 
 const input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
@@ -25,7 +26,7 @@ const options = {
 
     if (selectedDates[0] <= Date.now()) {
       iziToast.show({
-        iconUrl: '../img/octagon.svg',
+        iconUrl: icon,
         theme: 'dark',
         message: 'Please choose a date in the future',
         messageSize: '16px',
