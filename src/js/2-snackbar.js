@@ -8,7 +8,7 @@ form.addEventListener('submit', handleSubmit);
 function handleSubmit(ev) {
   ev.preventDefault();
 
-  const delay = ev.target.elements.delay.value;
+  const delay = Number(ev.target.elements.delay.value);
   const value = ev.target.elements.state.value;
 
   const makePromise = () => {
